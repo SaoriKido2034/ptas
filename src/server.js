@@ -9,11 +9,11 @@ app.get("/", (req, res) => {
   res.send("Você está na página principal");
 });
 
-app.get("/usuario", (req, res) => {
+app.get("/usuarios", (req, res) => {
   res.status(200).json(usuarios);
 });
 
-app.post("/usuario", (req, res) => {
+app.post("/usuarios", (req, res) => {
   const { nome, idade } = req.body;
   console.log(req.body);
   usuarios.push({ nome, idade });
