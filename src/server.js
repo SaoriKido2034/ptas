@@ -1,27 +1,30 @@
-import express from "express";
-const app = express();
-const port = 3000;
-app.use(express.json());
+import express from "express"
+import { DataBase } from "./databases.js"
+const app = express()
+app.use(express.json())
 
-const usuarios = [];
+const database = new DataBase()
 
-app.get("/", (req, res) => {
+app.get('/', (req, res) => {
   res.send("Você está na página principal");
-});
+})
 
-app.get("/usuarios", (req, res) => {
-  res.status(200).json(usuarios);
-});
+app.get('/usuario', (req, res) => {
+const data = database.select("usuario")
+  res.status(200).json(data)
+})
 
-app.post("/usuarios", (req, res) => {
-  const { nome, idade } = req.body;
-  console.log(req.body);
-  usuarios.push({ nome, idade });
-  console.log(usuarios);
+app.post('/usuario', (req, res) => {
+  const { nome, idade, email } = req.body
+  if (nome, idade, email) {
+    database.insert("usuario",{ nome, idade, email } )
+  return res.status(201).send("Usuário Criado")
+}
 
-  res.status(201).send("Usuário criado com sucesso");
-});
+return res.status(400).send("Informações inválidas")
 
-app.listen(3000, () => {
+})
+
+app.listen(3333, () => {
   console.log(`Servidor está rodando na porta https://localhost:3000`);
 });
